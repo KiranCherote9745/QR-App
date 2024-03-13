@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:qrapp/main.dart';
 import 'package:qrapp/registration.dart';
+import 'package:qrapp/scan.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -52,7 +52,14 @@ class _LoginState extends State<Login> {
             SizedBox(height: 20,),
             
             GestureDetector(
-            onTap: () {},
+            onTap: () {
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) =>
+                          scan()
+                  ));
+            },
               child: Container(
              height: 50,
                 width: 100,

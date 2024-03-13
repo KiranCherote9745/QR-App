@@ -10,6 +10,7 @@ class _RegistState extends State<Regist> {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: true,
       home: Scaffold(
         appBar: AppBar(title:Text('Registration Page'),
   
@@ -70,8 +71,8 @@ class _RegistState extends State<Regist> {
                   borderRadius: BorderRadius.circular(10),
                   color: Colors.yellow,
                 ),
-                child: Center(child: Text('Create',style: TextStyle(
-                  color: Colors.indigo,fontSize: 30,
+                child: Center(child: Text('Register',style: TextStyle(
+                  color: Colors.indigo,fontSize: 20,
                 ),),
 
                 ),
