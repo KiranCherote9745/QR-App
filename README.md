@@ -1,6 +1,6 @@
-# qrapp
+# qrregapp
 
-A QR app Flutter project.
+A Qr Project Flutter project.
 
 ## Getting Started
 

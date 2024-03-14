@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:qrapp/registration.dart';
-import 'package:qrapp/scan.dart';
+import 'package:qrregapp/registration.dart';
+import 'package:qrregapp/scan.dart';
+
 
 class Login extends StatefulWidget {
   const Login({super.key});
