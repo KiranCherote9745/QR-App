@@ -42,28 +42,31 @@ class _RegistState extends State<Regist> {
         'password': password.text,
       }),
     );
+    print(response.statusCode);
+    print(response.body);
+
+    var data =jsonDecode(response.body);
+    print(data["message"]);
     if (response.statusCode == 200) {
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Login()),
       );
     } else {
-      const snackBar = SnackBar(
-        content: Text('Yay! A SnackBar!'),
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: Text(data["message"]),
+      )
       );
-      ScaffoldMessenger.of(context).showSnackBar(snackBar);
     }
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: Scaffold(
-          backgroundColor: Colors.indigo,
+    return Scaffold(
+          backgroundColor: Colors.white70,
           appBar: AppBar(
             title: Text('Registration Page'),
-            backgroundColor: Colors.indigoAccent,
+            backgroundColor: Colors.orange,
           ),
           body: Column(
             children: [
@@ -123,7 +126,7 @@ class _RegistState extends State<Regist> {
                   width: 100,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
-                    color: Colors.yellow,
+                    color: Colors.white70,
                   ),
                   child: Center(
                     child: Text(
@@ -137,7 +140,7 @@ class _RegistState extends State<Regist> {
                 ),
               ),
             ],
-          )),
+          )
     );
   }
 }
