@@ -4,12 +4,15 @@ import 'package:http/http.dart' as http;
 
 import 'package:flutter/material.dart';
 
+import 'loginpage.dart';
+
 class Regist extends StatefulWidget {
   const Regist({super.key});
 
   @override
   State<Regist> createState() => _RegistState();
 }
+
 // text editing controller
 class _RegistState extends State<Regist> {
   final namecontroller = TextEditingController();
@@ -19,34 +22,45 @@ class _RegistState extends State<Regist> {
 
   bool loading = false;
 
-
-  void register() async{
+  void register() async {
     print(namecontroller.text);
     print(dateofbirthcontroller.text);
     print(emailcontroller.text);
     print(password.text);
-    
-    Uri uri = Uri.parse('https://scnner-web.onrender.com/api/register');
 
-    var response = await http.post(uri,
-    headers: <String, String>{
-      'Content-Type': 'application/json; charset=UTF-8',
-    },
-    body: jsonEncode(
-    <String, String>{
-    'name':namecontroller.text,
-    'dob':dateofbirthcontroller.text,
-    'email':emailcontroller.text,
-    'password':password.text,
-    }),
+    Uri uri = Uri.parse('https://scnner-web.onrender.com/api/register'); // api url link in('')
+    var response = await http.post(uri, // post method      // response is the var all the result is store
+      headers: <String, String>{
+        'Content-Type': 'application/json; charset=UTF-8',
+      },
+
+      body: jsonEncode(//   darcode jsonencode convert
+          <String, String>{
+        'name': namecontroller.text,
+        'dob': dateofbirthcontroller.text,
+        'email': emailcontroller.text,
+        'password': password.text,
+      }),
     );
+    if (response.statusCode == 200) {
+      Navigator.push(
+        context,
+        MaterialPageRoute(builder: (context) => const Login()),
+      );
+    } else {
+      const snackBar = SnackBar(
+        content: Text('Yay! A SnackBar!'),
+      );
+      ScaffoldMessenger.of(context).showSnackBar(snackBar);
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: true,
+      debugShowCheckedModeBanner: false,
       home: Scaffold(
-        backgroundColor: Colors.indigo,
+          backgroundColor: Colors.indigo,
           appBar: AppBar(
             title: Text('Registration Page'),
             backgroundColor: Colors.indigoAccent,
@@ -57,7 +71,6 @@ class _RegistState extends State<Regist> {
                 height: 50,
               ),
               TextField(
-
                 controller: namecontroller,
                 decoration: InputDecoration(
                     hintText: 'Enter your Name',
@@ -71,7 +84,7 @@ class _RegistState extends State<Regist> {
               TextField(
                 controller: dateofbirthcontroller,
                 decoration: InputDecoration(
-                    hintText: 'Enter Date of Birth',
+                    hintText: 'Enter Dob',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50.0),
                     )),
@@ -91,7 +104,7 @@ class _RegistState extends State<Regist> {
                 height: 10,
               ),
               TextField(
-                controller: password ,
+                controller: password,
                 decoration: InputDecoration(
                     hintText: 'Enter your Password',
                     border: OutlineInputBorder(
@@ -103,7 +116,7 @@ class _RegistState extends State<Regist> {
               ),
               GestureDetector(
                 onTap: () {
-                 register();
+                  register();
                 },
                 child: Container(
                   height: 50,
