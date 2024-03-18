@@ -16,28 +16,29 @@ class Regist extends StatefulWidget {
 // text editing controller
 class _RegistState extends State<Regist> {
   final namecontroller = TextEditingController();
-  final dateofbirthcontroller = TextEditingController();
+  final rollnocontroller = TextEditingController();
   final emailcontroller = TextEditingController();
   final password = TextEditingController();
 
   bool loading = false;
-
+  // registration function
   void register() async {
     print(namecontroller.text);
-    print(dateofbirthcontroller.text);
+    print(rollnocontroller.text);
     print(emailcontroller.text);
     print(password.text);
 
+    // api  converting url to uri
     Uri uri = Uri.parse('https://scnner-web.onrender.com/api/register'); // api url link in('')
-    var response = await http.post(uri, // post method      // response is the var all the result is store
+    var response = await http.post(uri, // post method      // response is the var all the result is store here awiat is given to pause and only after this other operaton
       headers: <String, String>{
         'Content-Type': 'application/json; charset=UTF-8',
       },
 
-      body: jsonEncode(//   darcode jsonencode convert
+      body: jsonEncode(                         //   darcode jsonencode convert
           <String, String>{
         'name': namecontroller.text,
-        'dob': dateofbirthcontroller.text,
+        'dob': rollnocontroller.text,
         'email': emailcontroller.text,
         'password': password.text,
       }),
@@ -47,12 +48,12 @@ class _RegistState extends State<Regist> {
 
     var data =jsonDecode(response.body);
     print(data["message"]);
-    if (response.statusCode == 200) {
+    if (response.statusCode == 200) {              // if status code =200 navigate to the login page
       Navigator.push(
         context,
         MaterialPageRoute(builder: (context) => const Login()),
       );
-    } else {
+    } else {                                                  //   here this else part is to show other status code other than 200 is
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
         content: Text(data["message"]),
       )
@@ -63,10 +64,10 @@ class _RegistState extends State<Regist> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-          backgroundColor: Colors.white70,
+          backgroundColor: Colors.indigo,
           appBar: AppBar(
             title: Text('Registration Page'),
-            backgroundColor: Colors.orange,
+            backgroundColor: Colors.indigoAccent,
           ),
           body: Column(
             children: [
@@ -85,9 +86,9 @@ class _RegistState extends State<Regist> {
                 height: 10,
               ),
               TextField(
-                controller: dateofbirthcontroller,
+                controller: rollnocontroller,
                 decoration: InputDecoration(
-                    hintText: 'Enter Dob',
+                    hintText: 'Enter rollno',
                     border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(50.0),
                     )),
@@ -119,6 +120,8 @@ class _RegistState extends State<Regist> {
               ),
               GestureDetector(
                 onTap: () {
+                  Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => Login()));
                   register();
                 },
                 child: Container(
